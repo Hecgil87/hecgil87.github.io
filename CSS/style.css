@@ -94,7 +94,15 @@ body {
     /* Mantenemos el resto de tus estilos body... */
     margin-top: 0 !important; /* Añade esta línea para Bootstrap */
     padding-top: 0 !important; /* Añade esta línea para Bootstrap */
+    background-color: #f0f2f5; /* Color de fondo claro */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
+
 
 /* Regla específica para la barra superior (el div con id="top-bar") */
 #top-bar {
@@ -111,25 +119,7 @@ body {
     main { margin-top: 8px; }
 }
 
-body {
-    background-color: #f0f2f5; /* Color de fondo claro */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
 
-/* Make the page a column flex layout so footer stays at the bottom */
-html, body {
-    height: 100%;
-}
-body {
-    display: flex;
-    flex-direction: column;
-}
-
-main {
-    flex: 1 0 auto; /* allow main to grow and push footer to bottom */
-}
 
 /* Ensure navbar links match site color */
 .navbar .nav-link {
