@@ -1,0 +1,173 @@
+/*Estilo de Titulo*/
+.siteTitle {
+    font-size: 2.8em;
+    color: #041523;
+    font-weight: bold;
+    text-align: center;        /* Centra el texto */
+    width: 100%;               /* Ocupa todo el ancho del contenedor */
+    display: block;            /* Asegura que el h1 sea un bloque */
+    margin: 0 auto;            /* Centra el bloque horizontalmente */
+}
+
+
+/*Estilo de Parrafos*/
+p {
+    font-size: 1.2em;
+    color: #000107;
+    text-align: justify;       /* Justifica el texto */
+    line-height: 1.6;         /* Mejora la legibilidad */
+    margin: 20px 0;           /* Espaciado vertical entre párrafos */
+}
+
+
+/*Estilo de Menu Desplegable*/
+table a,table th,.dropdown-content a,h1,h2,h3,h4,h5,h6 {
+    color: #041523;        /* Azul para todos los textos */
+}
+
+/* Header background (blurred via ::before) */
+header {
+    /* background moved to ::before so it can be blurred without affecting content */
+    min-height: 200px;
+    padding: 30px 0; /* mantiene el padding original */
+    position: relative;
+    overflow: hidden; /* clip blurred edges */
+}
+
+/* Optional overlay to improve text contrast */
+header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.06); /* slight light overlay; adjust as needed */
+    pointer-events: none;
+}
+
+/* blurred background layer behind header content */
+header::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-image: url('../img/fondo.png');
+    background-size: 100% 150%;
+    background-position: top center;
+    background-repeat: no-repeat;
+    filter: blur(3px);
+    transform: scale(1.06); /* avoid edges showing due to blur */
+    z-index: 0;
+}
+
+/* ensure header children are above the blurred background and overlay */
+header > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Bordes redondeados */
+header, footer, .dropdown-content {
+    border-radius: 12px;
+    overflow: hidden; /* ensures background/overlay is clipped to rounded corners */
+}
+
+/* Slight rounding for the dropdown button and table cells */
+.dropbtn, table th, table td {
+    border-radius: 6px;
+}
+
+/* Round the logo image a little */
+header img {
+    border-radius: 8px;
+}
+
+body {
+    background-color: #f0f2f5; /* Color de fondo claro */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+table {
+            width: 100%;
+            text-align: center;
+        }
+        table th {
+            padding: 0 30px;
+            text-align: center;
+        }
+        table a {
+            color: inherit;
+            text-decoration: none;
+            font-size: 1.1em;
+            display: inline-block;
+        }
+        table a:hover {
+            text-decoration: underline;
+        }
+        .dropdown-content {
+            text-align: left;
+        }
+
+
+/*Listas desplegables Servicios*/
+/*Listas desplegables Servicios*/
+.dropdown {
+        display: inline-block;
+        position: relative; /* keeps the dropdown aligned with its button */
+    }
+.dropbtn {
+        cursor: pointer;
+    }
+
+/* dropdown kept in the normal flow so it pushes content when opened */
+.dropdown-content {
+        position: static;
+        display: block; /* always block-level; visibility controlled via max-height/opacity */
+        overflow: hidden;
+        max-height: 0; /* collapsed */
+        opacity: 0;
+        transform-origin: top center;
+        transform: translateY(-6px) scaleY(0.98);
+        transition: max-height 260ms ease, opacity 220ms ease, transform 240ms ease;
+        min-width: 180px;
+        box-shadow: 0px 8px 16px 0px rgba(11, 1, 39, 0.07);
+        background: rgba(255,255,255,0.95);
+        border-radius: 4px;
+        margin-top: 6px;
+    }
+.dropdown-content a {
+        color: inherit;
+        padding: 10px 20px;
+        text-decoration: none;
+        display: block;
+        font-size: 1em;
+    }
+.dropdown-content a:hover {
+        background-color: rgba(39, 40, 65, 0.08);
+    }
+
+/* open via hover or by adding .open class (useful for JS/touch) */
+.dropdown:hover .dropdown-content,
+.dropdown.open .dropdown-content {
+        max-height: 600px; /* large enough to reveal all items */
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+    }
+
+
+/*Estilo Footer*/
+footer {
+    text-align: center;
+    color: #b7b8bd;
+    background: rgba(0, 4, 61, 0.85);
+    padding: 20px 0;
+    font-size: 1.1em;
+    border-top: 2px solid #858999;
+    box-shadow: 0 -2px 8px rgba(39,40,65,0.08);
+    width: 100%;
+    margin-top: 40px;
+}
