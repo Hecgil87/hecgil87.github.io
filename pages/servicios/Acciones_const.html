@@ -4,43 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AMC Sitio Web</title>
-    <link rel="stylesheet" href="/CSS/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../CSS/style.css">
 </head>
 <body>
-    <header style="display: flex; align-items: center; padding: 30px 0;">
-     <img src="/img/AMC_logo.png" alt="Logo AMC" width="250" height="200" style="margin-left: 150px; margin-right: 2px;">
-        <div style="width: 100%;">
-            <h1 class="siteTitle" style="text-align: center;">AMC Global Servicios</h1>
-            <p style="margin-top: 10px;margin-left: 400px;" font-size: 1.5em; text-align: center;">
-                Soluciones jurídicas a su medida
-            </p>
-        </div>
-    </header>
-        <br><br>
-<main>
-    <table>
-        <tr> 
-            <th><a href="/index.html">INICIO</a></th>
-    <th><a href="/pages/quienes_somos.html">NOSOTROS</a></th>
-    <th style="position: relative;">
-            <div class="dropdown">
-                <a href="#" class="dropbtn" onclick="return false;">NUESTROS SERVICIOS</a>
-                <div class="dropdown-content">
-                    <a href="Der_ConAct.html">Derecho Contractual</a>
-                    <a href="Der_Civil.html">Derecho Civil</a>
-                    <a href="Der_Cat.html">Derecho Catastral</a>
-                    <a href="Acciones_const.html">Acciones Constitucionales</a>  
+    <header class="py-3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <a href="../../index.html"><img src="../../img/AMC_logo.png" alt="Logo AMC" class="logo img-fluid"></a>
+                </div>
+                <div class="col">
+                    <h1 class="siteTitle mb-0">AMC Global Servicios</h1>
+                    <p class="siteSubtitle mb-0">Soluciones jurídicas a su medida</p>
                 </div>
             </div>
-        </th>
-    <th><a href="/pages/contacto.html">INFORMACIÓN DE CONTACTO</a></th> 
-        </tr>
-    </table>
-    <hr>
-    </main>
+        </div>
+    </header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-lg-none" href="../../index.html">AMC</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="../../index.html">INICIO</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../quienes_somos.html">NOSOTROS</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="serviciosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">NUESTROS SERVICIOS</a>
+                        <ul class="dropdown-menu" aria-labelledby="serviciosDropdown">
+                            <li><a class="dropdown-item" href="Der_ConAct.html">Derecho Contractual</a></li>
+                            <li><a class="dropdown-item" href="Der_Civil.html">Derecho Civil</a></li>
+                            <li><a class="dropdown-item" href="Der_Cat.html">Derecho Catastral</a></li>
+                            <li><a class="dropdown-item" href="Acciones_const.html">Acciones Constitucionales</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="../contacto.html">INFORMACIÓN DE CONTACTO</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="container mt-4">
+        <hr>
     <br><br><br><br><br>
     <footer>
         &copy; 2025 AMC Global Servicios. Todos los derechos reservados.
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
