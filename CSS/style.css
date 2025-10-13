@@ -48,7 +48,9 @@ header {
     min-height: 10px;
     padding: 0 0 0 0;
     position: relative;
-    overflow: hidden; /* clip blurred edges */
+    /* Allow children (navbar dropdowns / overlays) to overflow the header instead of being clipped */
+    overflow: visible; /* previously hidden which clipped expanded nav */
+    z-index: 1020 !important;
 }
 
 /* Optional overlay to improve text contrast */
@@ -77,13 +79,14 @@ header::before {
     background-repeat: no-repeat;
     filter: blur(3px);
     transform: scale(1.06);
-    z-index: 0;
+    /* Put the decorative blurred layer behind other content so it doesn't block overlays */
+    z-index: -1;
 }
 
 /* ensure header children are above the blurred background and overlay */
 header > * {
     position: relative;
-    z-index: 2;
+    z-index: 1020;
 }
 
 /* Aseguramos que el body y la barra superior se peguen al borde superior de la ventana */
@@ -101,14 +104,6 @@ body {
     /* Aquí definiremos el color */
     background-color: #041523 !important; /* Un azul oscuro que combine con tus títulos */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-
-/* Sticky container for header + navbar */
-.site-top {
-    background: rgba(255,255,255,0.98);
-    z-index: 1030; /* above default stacking contexts */
-    box-shadow: 0 2px 8px rgba(39,40,65,0.06);
 }
 
 /* Add a small top margin to main to avoid content being hidden under sticky header on small screens */
@@ -144,12 +139,14 @@ main {
     color: #041523 !important;
 }
 .navbar {
-    padding: 0 0 0 0;
     margin-bottom:-100%;
     margin-top: 20px;
     margin-left: 0%;
     margin-right: -80px;
 
+}
+.dropdown-menu {
+    z-index: 2050 !important; /* Ensure dropdowns and overlays appear above header and other content */
 }
 
 
@@ -170,4 +167,16 @@ footer {
 @media (max-width: 480px) {
     header { min-height: 90px; padding: 8px 0; }
     footer { padding: 8px 0; font-size: 0.9em; margin-top: 12px; }
+}
+
+@media (min-width: 992px) { /* La clase 'lg' de Bootstrap comienza en 992px */
+    .navbar-expand-lg .navbar-nav .dropdown:hover .dropdown-menu {
+        display: block; /* Hacemos visible el menú */
+        margin-top: 0; /* Asegura que el menú se pegue al enlace */
+    }
+
+    /* Opcional: Agrega un efecto de color al enlace al pasar el cursor */
+    .navbar-expand-lg .navbar-nav .dropdown:hover > .nav-link {
+        color: #041523; /* Usa el color de tus títulos */
+    }
 }
