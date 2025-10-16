@@ -1,55 +1,101 @@
+/* ----------------------------------------------------------------- */
+/* 1. RESET Y CONTROL DE PANTALLA TOTAL (SOLUCIÓN) */
+/* ----------------------------------------------------------------- */
+
+/* CORRECCIÓN CLAVE: Eliminar margen/padding por defecto y controlar el ancho */
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* CORRECCIÓN CLAVE: Eliminar márgenes y paddings globales no deseados */
+    margin: 0 !important; /* Agregamos !important como medida de seguridad */
+    padding: 0 !important; /* Agregamos !important como medida de seguridad */
+    width: 100%;
+    
+    /* Previene la barra de desplazamiento horizontal causada por overflow */
+    overflow-x: hidden; 
+
+    background-color: #f0f2f5; 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure body fills viewport so footer can sit at bottom */
+}
+
+/* CORRECCIÓN EXTREMA: Asegurarnos que el primer elemento dentro del body (normalmente la barra superior) 
+   no tenga margen superior, anulando cualquier colapso o valor por defecto de Bootstrap. */
+body > *:first-child {
+    margin-top: 0 !important;
+}
+
+
+/* ----------------------------------------------------------------- */
+/* 2. ESTILOS DE COMPONENTES (Ajustados) */
+/* ----------------------------------------------------------------- */
+
 /*Estilo de Titulo*/
 .siteTitle {
     font-size: 1.8em;
     color: #041523;
-    font-weight: bold;
-    text-align: center;        /* Centra el texto */
-    width: 110%;               /* Ocupa todo el ancho del contenedor */
-    display: block;            /* Asegura que el h1 sea un bloque */
-    margin: 0 auto;
-    padding-left: 5%;
+    font-weight:;
+    /* Align title to the left so it sits next to the logo */
+    text-align: left;
+    width: auto;
+    display: block;
+    margin: 0;
+    padding: 0%;
 }
-
 
 /*Estilo de Parrafos*/
 p {
     font-size: 1.2em;
     color: #000107;
-    text-align: justify;       /* Justifica el texto */
-    line-height: 1.6;         /* Mejora la legibilidad */
-    margin: 20px 0;           /* Espaciado vertical entre párrafos */
+    text-align: justify;
+    line-height: 1.6; 
+    margin: 20px 0;
 }
-
 
 /* Color para encabezados */
 h1,h2,h3,h4,h5,h6 {
-    color: #041523;        /* Azul para encabezados */
+    color: #041523;
 }
 
 /* Bootstrap integration overrides */
 .logo {
     max-width: 130px;
     height: auto;
-    margin-left: -60px;
-    margin-top: -10px;
-    margin-bottom: -10px;
+    margin: 0;    /* Ensure the logo behaves as an inline-block / block inside the link */
+    display: block;
 }
+
+/* CORRECCIÓN DE SUBTÍTULO: Usamos un margen automático para centrar o 
+   eliminamos el margen fijo que puede causar desbordamiento */
 .siteSubtitle {
     color: #333;
     font-size: 1.1rem;
     margin-top: 3px;
-    margin-left: 130px;
+    /* Align subtitle with title */
+    text-align: right;
+    margin-left: 0;
 }
+
+
+/* ----------------------------------------------------------------- */
+/* 3. HEADER Y NAVEGACIÓN */
+/* ----------------------------------------------------------------- */
 
 /* Header background (blurred via ::before) */
 header {
-    /* background moved to ::before so it can be blurred without affecting content */
-    /* reducido para ocupar menos alto en pantalla */
     min-height: 10px;
     padding: 0 0 0 0;
     position: relative;
-    /* Allow children (navbar dropdowns / overlays) to overflow the header instead of being clipped */
-    overflow: visible; /* previously hidden which clipped expanded nav */
+    overflow: visible;
     z-index: 1020 !important;
 }
 
@@ -61,7 +107,7 @@ header::after {
     right: 0;
     top: 0;
     bottom: 0;
-    background: rgba(255,255,255,0.06); /* slight light overlay; adjust as needed */
+    background: rgba(255,255,255,0.06); 
     pointer-events: none;
 }
 
@@ -79,7 +125,6 @@ header::before {
     background-repeat: no-repeat;
     filter: blur(3px);
     transform: scale(1.06);
-    /* Put the decorative blurred layer behind other content so it doesn't block overlays */
     z-index: -1;
 }
 
@@ -89,37 +134,19 @@ header > * {
     z-index: 1020;
 }
 
-/* Aseguramos que el body y la barra superior se peguen al borde superior de la ventana */
-body {
-    /* Mantenemos el resto de tus estilos body... */
-    margin-top: 0 !important; /* Añade esta línea para Bootstrap */
-    padding-top: 0 !important; /* Añade esta línea para Bootstrap */
-    background-color: #f0f2f5; /* Color de fondo claro */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-
 /* Regla específica para la barra superior (el div con id="top-bar") */
 #top-bar {
-    margin-top: -25px;
-    padding-top: 0px; /* Reducimos el padding si el py-1 no es suficiente */
-    padding-bottom: 8px; /* Reducimos el padding */
-    /* Aquí definiremos el color */
-    background-color: #041523 !important; /* Un azul oscuro que combine con tus títulos */
+    /* CORRECCIÓN DEFINITIVA: Forzar 0 padding superior para anular la clase 'py-1' de Bootstrap */
+    margin-top: 0px !important; 
+    padding-top: 0px !important; /* AÑADIDO !important */
+    padding-bottom: 8px; 
+    background-color: #041523 !important; 
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    
+    /* Asegurar que el z-index sea lo suficientemente alto */
+    position: relative;
+    z-index: 1010;
 }
-
-/* Add a small top margin to main to avoid content being hidden under sticky header on small screens */
-@media (max-width: 767px) {
-    main { margin-top: 8px; }
-}
-
-
 
 /* Ensure navbar links match site color */
 .navbar .nav-link {
@@ -129,14 +156,20 @@ body {
     color: #041523 !important;
 }
 .navbar {
-    margin-bottom:-100%;
-    margin-top: 20px;
-    margin-left: 0%;
-    margin-right: -80px;
-
+    margin: 0; /* CORREGIDO: Eliminar el margin-top de 20px */
 }
 .dropdown-menu {
-    z-index: 2050 !important; /* Ensure dropdowns and overlays appear above header and other content */
+    z-index: 2050 !important;
+}
+
+/* ----------------------------------------------------------------- */
+/* 4. MAIN CONTENT Y FOOTER */
+/* ----------------------------------------------------------------- */
+
+/* Make main take remaining vertical space so footer is pushed to bottom */
+main {
+    flex: 1 1 auto;
+    width: 100%;
 }
 
 
@@ -150,7 +183,18 @@ footer {
     border-top: 2px solid #858999;
     box-shadow: 0 -2px 8px rgba(39,40,65,0.08);
     width: 100%;
-    margin-top: 20px;
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+
+/* ----------------------------------------------------------------- */
+/* 5. MEDIA QUERIES Y HOVER (Ajustados) */
+/* ----------------------------------------------------------------- */
+
+/* Add a small top margin to main to avoid content being hidden under sticky header on small screens */
+@media (max-width: 767px) {
+    main { margin-top: 8px; }
 }
 
 /* Extra reductions for very small screens */
@@ -159,14 +203,13 @@ footer {
     footer { padding: 8px 0; font-size: 0.9em; margin-top: 12px; }
 }
 
-@media (min-width: 992px) { /* La clase 'lg' de Bootstrap comienza en 992px */
+/* Despliegue al pasar el cursor */
+@media (min-width: 992px) { 
     .navbar-expand-lg .navbar-nav .dropdown:hover .dropdown-menu {
-        display: block; /* Hacemos visible el menú */
-        margin-top: 0; /* Asegura que el menú se pegue al enlace */
+        display: block; 
+        margin-top: 0; 
     }
-
-    /* Opcional: Agrega un efecto de color al enlace al pasar el cursor */
     .navbar-expand-lg .navbar-nav .dropdown:hover > .nav-link {
-        color: #041523; /* Usa el color de tus títulos */
+        color: #041523; 
     }
 }
