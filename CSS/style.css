@@ -43,13 +43,13 @@ body > *:first-child {
 .siteTitle {
     font-size: 1.8em;
     color: #041523;
-    font-weight:;
+    font-weight: 700;
     /* Align title to the left so it sits next to the logo */
     text-align: left;
     width: auto;
     display: block;
     margin: 0;
-    padding: 0%;
+    padding: 0;
 }
 
 /*Estilo de Parrafos*/
@@ -70,7 +70,7 @@ h1,h2,h3,h4,h5,h6 {
 .logo {
     max-width: 130px;
     height: auto;
-    margin: 0;    /* Ensure the logo behaves as an inline-block / block inside the link */
+    margin: 0;
     display: block;
 }
 
@@ -81,7 +81,7 @@ h1,h2,h3,h4,h5,h6 {
     font-size: 1.1rem;
     margin-top: 3px;
     /* Align subtitle with title */
-    text-align: right;
+    text-align: left;
     margin-left: 0;
 }
 
@@ -137,9 +137,10 @@ header > * {
 /* Regla específica para la barra superior (el div con id="top-bar") */
 #top-bar {
     /* CORRECCIÓN DEFINITIVA: Forzar 0 padding superior para anular la clase 'py-1' de Bootstrap */
+    
     margin-top: 0px !important; 
     padding-top: 0px !important; /* AÑADIDO !important */
-    padding-bottom: 8px; 
+    padding-bottom: 8px;
     background-color: #041523 !important; 
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     
