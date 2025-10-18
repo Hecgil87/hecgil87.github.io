@@ -50,6 +50,8 @@ body > *:first-child {
     display: block;
     margin: 0;
     padding: 0;
+    margin-left: 50px;
+    margin-top: 0px;
 }
 
 /*Estilo de Parrafos*/
@@ -68,9 +70,10 @@ h1,h2,h3,h4,h5,h6 {
 
 /* Bootstrap integration overrides */
 .logo {
-    max-width: 130px;
-    height: auto;
+    max-width: 90px;
+    max-height: 90px;
     margin: 0;
+    margin-left: 0px;
     display: block;
 }
 
@@ -82,7 +85,7 @@ h1,h2,h3,h4,h5,h6 {
     margin-top: 3px;
     /* Align subtitle with title */
     text-align: left;
-    margin-left: 0;
+    margin-left: 170px;
 }
 
 
@@ -140,7 +143,7 @@ header > * {
     
     margin-top: 0px !important; 
     padding-top: 0px !important; /* AÑADIDO !important */
-    padding-bottom: 8px;
+    padding-bottom: 3px;
     background-color: #041523 !important; 
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     
@@ -157,6 +160,7 @@ header > * {
     color: #041523 !important;
 }
 .navbar {
+ /* CORREGIDO: Eliminar el margin-bottom de 20px */
     margin: 0; /* CORREGIDO: Eliminar el margin-top de 20px */
 }
 .dropdown-menu {
