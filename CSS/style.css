@@ -221,14 +221,22 @@ footer {
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            /* CAMBIO CLAVE: Texto blanco para que resalte sobre la sombra */
+            /* Texto blanco como fallback, aunque las reglas anidadas fuerzan el color */
             color: #ffffff; 
             position: relative;
             overflow: hidden;
-            border-radius: 12px; /* Bordes redondeados */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            padding: 3rem !important; /* Más padding para el contenido */
+            border-radius: 0; /* Eliminamos bordes redondeados para el ancho completo */
+            box-shadow: none; /* Eliminamos la sombra para el ancho completo */
+            padding: 3rem 0 !important; /* Mantenemos padding vertical, el container interno maneja el horizontal */
             min-height: 400px; /* Altura mínima para mostrar el fondo */
+            /* AÑADIDO: Ocupa todo el ancho disponible */
+            width: 100vw;
+            /* AÑADIDO: Mueve la sección hacia la izquierda para alinearse con el borde de la ventana */
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
         }
 
         /* Capa oscura semi-transparente (Overlay) para mejorar el contraste sobre el fondo */
@@ -245,10 +253,15 @@ footer {
         }
 
         /* Asegurar que el contenido y los títulos estén sobre la capa oscura */
-        .abstract-legal-bg > *, .abstract-legal-bg h2 {
+        .abstract-legal-bg > * {
             position: relative;
             z-index: 2;
-            color: #ffffff; /* CAMBIO CLAVE: Texto blanco */
+        }
+        
+        /* REGLA CORREGIDA Y REFORZADA: Textos y Títulos siempre blancos dentro de esta sección */
+        .abstract-legal-bg h2, 
+        .abstract-legal-bg p {
+            color: #ffffff !important; /* ¡Forzamos el blanco! */
             /* Aplicamos una sombra al texto más fuerte (negra) para que resalte */
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
         }
@@ -258,4 +271,33 @@ footer {
             /* Línea de título blanca y transparente */
             border-bottom: 2px solid rgba(255, 255, 255, 0.6); 
             padding-bottom: 0.5rem;
+        }
+
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 10px;
+            overflow: hidden; /* Asegura que la imagen respete el radio */
+            border: none;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img-top {
+            /* Asegura que la imagen sea responsiva y cubra el área */
+            height: 200px; 
+            object-fit: cover;
+        }
+
+        .btn-call-to-action {
+            /* Estilo para el botón de contacto */
+            background-color: #007bff; /* Color primario de Bootstrap (Azul) */
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn-call-to-action:hover {
+            background-color: #0056b3;
         }
