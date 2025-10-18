@@ -214,3 +214,48 @@ footer {
         color: #041523; 
     }
 }
+
+.abstract-legal-bg {
+            /* Usando una ruta local */
+            background-image: url('/img/FondoContacto.gif'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /* CAMBIO CLAVE: Texto blanco para que resalte sobre la sombra */
+            color: #ffffff; 
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px; /* Bordes redondeados */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            padding: 3rem !important; /* Más padding para el contenido */
+            min-height: 400px; /* Altura mínima para mostrar el fondo */
+        }
+
+        /* Capa oscura semi-transparente (Overlay) para mejorar el contraste sobre el fondo */
+        .abstract-legal-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* Opacidad reducida a 0.35 para que se vea más el fondo */
+            background: rgba(0, 0, 0, 0.35); 
+            z-index: 1;
+        }
+
+        /* Asegurar que el contenido y los títulos estén sobre la capa oscura */
+        .abstract-legal-bg > *, .abstract-legal-bg h2 {
+            position: relative;
+            z-index: 2;
+            color: #ffffff; /* CAMBIO CLAVE: Texto blanco */
+            /* Aplicamos una sombra al texto más fuerte (negra) para que resalte */
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
+        }
+
+        /* Estilo especial para los títulos dentro de la sección de fondo */
+        .abstract-legal-bg h2 {
+            /* Línea de título blanca y transparente */
+            border-bottom: 2px solid rgba(255, 255, 255, 0.6); 
+            padding-bottom: 0.5rem;
+        }

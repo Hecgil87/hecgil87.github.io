@@ -71,14 +71,223 @@
             </div>
         </div>
     </header>
-    <main class="container mt-4">
-        <hr>
-        </main>
-    <br><br><br><br><br>
-    <footer>
-        &copy; 2025 AMC Global Servicios. Todos los derechos reservados.
-    </footer>
-    <!-- Bootstrap JS (bundle includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <main class="container mt-5 mb-5">
+        <h1 class="text-center mb-5 text-primary">Contáctanos y Empecemos a Trabajar</h1>
+        
+        <!-- SECCIÓN PRINCIPAL: Información y Formulario -->
+        <div class="row g-5">
+            
+            <!-- Columna de Información de Contacto  -->
+            <div class="col-lg-5">
+                <div class="p-4 bg-light rounded-3 shadow-sm h-100">
+                    <h2 class="h4 mb-4 border-bottom pb-2">Información de AMC Global Servicios S.A.S.</h2>
+                    
+                    <p class="lead">Estamos listos para atender tus consultas y brindarte la asesoría legal que necesitas.</p>
+                    
+                    <ul class="list-unstyled mt-4">
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="fas fa-envelope fa-2x text-primary me-3 pt-1"></i>
+                            <div>
+                                <h5 class="fw-bold mb-0">Correo Electrónico</h5>
+                                <a href="mailto:amcglobalserviciossas@gmail.com" class="text-decoration-none">amcglobalserviciossas@gmail.com</a>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="fas fa-phone-alt fa-2x text-primary me-3 pt-1"></i>
+                            <div>
+                                <h5 class="fw-bold mb-0">Teléfono</h5>
+                                <a href="tel:+573168222210" class="text-decoration-none">+57 316 8222210</a>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="fas fa-map-marker-alt fa-2x text-primary me-3 pt-1"></i>
+                            <div>
+                                <h5 class="fw-bold mb-0">Dirección Principal</h5>
+                                <p class="mb-0">Colombia (Ubicación Geográfica Central)</p>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <h5 class="mt-5 border-top pt-3">Síguenos en nuestras Redes</h5>
+                    <div class="social-links mt-3">
+                        <a href="#" class="btn btn-outline-primary me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="btn btn-outline-primary"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna del Formulario de Contacto -->
+            <div class="col-lg-7">
+                <div class="p-4 rounded-3 shadow border">
+                    <h2 class="h4 mb-4">Cuéntanos tu Caso</h2>
+                    <p class="text-muted mb-4">Diligencia el siguiente formulario y un experto se pondrá en contacto contigo a la brevedad.</p>
+
+                    <!-- llamar a la función de validación -->
+                    <form id="contactForm" action="#" method="POST" onsubmit="return validateForm(event)">
+                        
+                        <!-- Campo: Nombre -->
+                        <div class="mb-3">
+                            <!-- label para sugerir un mínimo (Nombre y Apellido) -->
+                            <label for="nombre" class="form-label">Nombre y Apellido</label>
+                            <!-- atributo minlength para la validación de longitud mínima -->
+                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa tu nombre y apellido" required minlength="4">
+                            <!-- Espacio para el mensaje de error del nombre -->
+                            <div class="invalid-feedback" id="nombreError">
+                                El nombre solo debe contener letras, tildes y espacios, y debe tener al menos 4 caracteres (ej: 'Jo Pa').
+                            </div>
+                        </div>
+                        
+                        <!-- Campo: Teléfono -->
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label">Número Telefónico</label>
+                            <!-- atributo minlength para forzar 10 dígitos (en la validación JS) -->
+                            <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Ej: 3001234567" required>
+                            <!-- Espacio para el mensaje de error del teléfono -->
+                            <div class="invalid-feedback" id="telefonoError">
+                                Por favor, introduce un número de teléfono válido, de al menos 10 dígitos (solo números, +, espacios o -).
+                            </div>
+                        </div>
+                        
+                        <!-- Campo: Correo Electrónico -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="nombre@ejemplo.com" required>
+                            <div class="invalid-feedback" id="emailError">
+                                Por favor, introduce un correo electrónico válido y con extensión completa (ej: nombre@dominio.com).
+                            </div>
+                        </div>
+                        
+                        <!-- Campo: Coméntanos tu Caso -->
+                        <div class="mb-4">
+                            <label for="mensaje" class="form-label">Coméntanos tu Caso para Estudiarlo</label>
+                            <!-- Se añadió el atributo minlength para el mínimo de 30 caracteres -->
+                            <textarea class="form-control" id="mensaje" name="mensaje" rows="5" placeholder="Describe brevemente tu situación o consulta legal." required minlength="30"></textarea>
+                            <div class="invalid-feedback" id="mensajeError">
+                                El mensaje debe contener una descripción más detallada (mínimo 30 caracteres, aprox. dos renglones).
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg w-100">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- FIN SECCIÓN PRINCIPAL -->
+    </main>
+    
+    <br>
+    <footer>
+        <div class="container text-center py-3 border-top">
+            &copy; 2025 AMC Global Servicios. Todos los derechos reservados.
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Función de utilidad para limpiar la clase de error
+        function clearError(inputElement) {
+            inputElement.classList.remove('is-invalid');
+        }
+
+        // Función principal de validación de formularios
+        function validateForm(event) {
+            // Evitar el envío inmediato para poder manejar la validación
+            event.preventDefault(); 
+            
+            let isValid = true;
+            const form = document.getElementById('contactForm');
+            
+            // --- Campos y Valores ---
+            const nombreInput = document.getElementById('nombre');
+            const telefonoInput = document.getElementById('telefono');
+            const emailInput = document.getElementById('email');
+            const mensajeInput = document.getElementById('mensaje');
+
+            const nombreValue = nombreInput.value.trim();
+            const telefonoValue = telefonoInput.value.trim();
+            const emailValue = emailInput.value.trim();
+            const mensajeValue = mensajeInput.value.trim();
+
+            // --- Validaciones ---
+
+            // 1. Validar Nombre (solo letras, tildes, espacios y mínimo 4 caracteres)
+            const nombreRegex = /^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/; 
+            if (!nombreRegex.test(nombreValue) || nombreValue.length < 4) {
+                nombreInput.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                clearError(nombreInput);
+            }
+
+            // 2. Validar Teléfono (solo números, +, -, espacios y mínimo 10 dígitos limpios)
+            // Se limpia la cadena para contar solo dígitos
+            const cleanTelefono = telefonoValue.replace(/[^\d]/g, ''); 
+            // Permite el formato de teléfono
+            const telefonoRegex = /^\+?[\d\s-]{10,}$/;
+
+            if (!telefonoRegex.test(telefonoValue) || cleanTelefono.length < 10) {
+                telefonoInput.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                clearError(telefonoInput);
+            }
+
+            // 3. Validar Correo Electrónico (formato correcto y extensión completa)            
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+            if (!emailRegex.test(emailValue)) {
+                emailInput.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                clearError(emailInput);
+            }
+
+            // 4. Validar Mensaje (mínimo 30 caracteres)
+            const MIN_MENSAJE_LENGTH = 30;
+            if (mensajeValue.length < MIN_MENSAJE_LENGTH) {
+                mensajeInput.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                clearError(mensajeInput);
+            }
+
+
+            // --- Envío del Formulario ---
+            if (isValid) {
+                // Espacio código para enviar los datos (e.g., usando fetch o AJAX)
+                
+                // Mostrar un modal o mensaje de éxito en lugar de alert()
+                showSuccessMessage('¡Mensaje enviado con éxito!', 'Gracias por contactarnos. Un experto legal se comunicará contigo pronto.');
+                form.reset(); 
+            }
+
+            return isValid;
+        }
+
+        // Función para mostrar un mensaje de éxito
+        function showSuccessMessage(title, message) {
+             // Reemplaza el contenido del formulario con un mensaje de éxito temporal.
+             const formContainer = document.querySelector('.col-lg-7 .p-4');
+             if (formContainer) {
+                 formContainer.innerHTML = `
+                    <div class="alert alert-success p-5 text-center" role="alert">
+                        <i class="fas fa-check-circle fa-4x mb-3"></i>
+                        <h4 class="alert-heading">${title}</h4>
+                        <p class="mb-0">${message}</p>
+                        <hr>
+                        <button class="btn btn-sm btn-outline-success mt-2" onclick="window.location.reload();">Volver al Formulario</button>
+                    </div>
+                `;
+             }
+        }
+
+        // limpiar los errores en tiempo real
+        document.getElementById('nombre').addEventListener('input', function() { clearError(this); });
+        document.getElementById('telefono').addEventListener('input', function() { clearError(this); });
+        document.getElementById('email').addEventListener('input', function() { clearError(this); });
+        document.getElementById('mensaje').addEventListener('input', function() { clearError(this); });
+
+    </script>
 </body>
 </html>
