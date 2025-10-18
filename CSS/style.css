@@ -42,7 +42,7 @@ body > *:first-child {
 /*Estilo de Titulo*/
 .siteTitle {
     font-size: 1.8em;
-    color: #041523;
+    color: #040423;
     font-weight: 700;
     /* Align title to the left so it sits next to the logo */
     text-align: left;
@@ -55,7 +55,7 @@ body > *:first-child {
 /*Estilo de Parrafos*/
 p {
     font-size: 1.2em;
-    color: #000107;
+    color: #000d51;
     text-align: justify;
     line-height: 1.6; 
     margin: 20px 0;
@@ -178,14 +178,15 @@ main {
 footer {
     text-align: center;
     color: #b7b8bd;
-    background: rgba(0, 4, 61, 0.85);
-    padding: 10px 0;
     font-size: 0.95em;
-    border-top: 2px solid #858999;
     box-shadow: 0 -2px 8px rgba(39,40,65,0.08);
     width: 100%;
-    margin-top: auto;
     flex-shrink: 0;
+    margin-top: 0px !important; 
+    padding-top: 0px !important; /* AÑADIDO !important */
+    padding-bottom: 8px;
+    background-color: #041523 !important; 
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 
