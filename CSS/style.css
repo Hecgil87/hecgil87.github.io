@@ -275,7 +275,7 @@ footer {
 
         .service-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 10px; /* Bordes redondeados */
+            border-radius: 10px;
             overflow: hidden; /* Asegura que la imagen respete el radio */
             border: none;
         }
