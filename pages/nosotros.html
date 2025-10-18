@@ -71,10 +71,14 @@
             </div>
         </div>
     </header>
-    <main class="container mt-4">
-        <hr>
+    <main class="mt-4">
+        <!-- Nota: Eliminamos el <hr> que estaba dentro del container para que el fondo llegue al borde -->
 
-        <section class="abstract-legal-bg py-4">
+        <!-- La clase abstract-legal-bg se extiende a todo el ancho de la ventana -->
+        <section class="abstract-legal-bg">
+            <!-- AGREGAMOS UN CONTAINER DENTRO para limitar el texto y que el padding se vea correcto -->
+            <div class="container">
+                <hr class="mb-5 mt-0">
             <h2>¿Quiénes SOMOS?</h2>
             <p>
                 AMC Global Servicios es una firma dedicada a ofrecer soluciones integrales en el ámbito jurídico y tecnológico. Con un equipo multidisciplinario de profesionales, nos especializamos en brindar asesoría legal y servicios tecnológicos adaptados a las necesidades de nuestros clientes.
