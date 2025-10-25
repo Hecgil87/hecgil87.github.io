@@ -142,11 +142,59 @@
         <h2 class="text-center mb-4">Soluciones Jurídicas Integrales</h2>
         <p class="lead text-center">En AMC Global Servicios S.A.S., combinamos experiencia y conocimiento especializado para ofrecerte la mejor representación legal en derecho contractual, civil y catastral.</p>
         <hr>
-        </main>
-    <br><br>
+    </main>
+     <!-- 1. Botón Flotante del Chatbot -->
+    <button id="chatbot-toggle-button" class="p-3" data-bs-toggle="modal" data-bs-target="#chatbotModal">
+        <i class="fas fa-question-circle fa-2x"></i>
+    </button>
+
+    <!-- 2. Modal del Chatbot -->
+    <div class="modal fade" id="chatbotModal" tabindex="-1" aria-labelledby="chatbotModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-lg shadow-lg">
+                
+                <!-- Encabezado del Chatbot -->
+                <div class="modal-header bg-primary text-white p-3 rounded-top d-flex align-items-center">
+                    <i class="fas fa-comment-dots me-2 fa-lg"></i> 
+                    <h5 class="modal-title flex-grow-1" id="chatbotModalLabel">
+                        Asistente Jurídico
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Cuerpo del Chat: Historial y Sugerencias -->
+                <div class="modal-body p-0">
+                    <div class="chat-container" id="chat-container">
+                        <!-- Mensaje de bienvenida inicial -->
+                        <div class="message bot-message">
+                            Hola, soy tu Asistente Jurídico. ¿En qué área legal podemos asistirte hoy?
+                        </div>
+                    </div>
+                    
+                    <!-- Sugerencias de Inicio (Pills) -->
+                    <div class="p-3 border-top d-flex flex-wrap" id="chat-suggestions">
+                        <span class="badge rounded-pill bg-info text-dark chat-suggestion" onclick="sendSuggestion('Necesito ayuda con un contrato')">Contratos</span>
+                        <span class="badge rounded-pill bg-info text-dark chat-suggestion" onclick="sendSuggestion('Pregunta sobre herencias o divorcios')">Derecho Civil</span>
+                        <span class="badge rounded-pill bg-info text-dark chat-suggestion" onclick="sendSuggestion('Consultar sobre límites de propiedad')">Catastral</span>
+                        <span class="badge rounded-pill bg-info text-dark chat-suggestion" onclick="sendSuggestion('Quiero presentar una tuteta')">Tutelas, Derechos de Petición, Acción Popular</span>
+                    </div>
+
+                    <!-- Entrada de Usuario -->
+                    <div class="p-3 border-top d-flex">
+                        <input type="text" id="user-input" class="form-control me-2 rounded-pill" placeholder="Escribe tu consulta aquí..." onkeydown="if (event.keyCode === 13) document.getElementById('send-button').click()">
+                        <button class="btn btn-primary rounded-pill" id="send-button" onclick="sendMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<br><br>
     <footer>
         &copy; 2025 AMC Global Servicios. Todos los derechos reservados.
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
 </body>
 </html>
