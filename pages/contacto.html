@@ -71,7 +71,7 @@
             </div>
         </div>
     </header>
-    <main class="container mt-5 mb-5">
+    <main class="container mt-3 mb-5">
         <h1 class="text-center mb-5 text-primary">Contáctanos y Empecemos a Trabajar</h1>
         
         <!-- SECCIÓN PRINCIPAL: Información y Formulario -->
@@ -160,7 +160,7 @@
                         <!-- Campo: Coméntanos tu Caso -->
                         <div class="mb-4">
                             <label for="mensaje" class="form-label">Coméntanos tu Caso para Estudiarlo</label>
-                            <!-- Se añadió el atributo minlength para el mínimo de 30 caracteres -->
+                            <!-- atributo minlength para el mínimo de 30 caracteres -->
                             <textarea class="form-control" id="mensaje" name="mensaje" rows="5" placeholder="Describe brevemente tu situación o consulta legal." required minlength="30"></textarea>
                             <div class="invalid-feedback" id="mensajeError">
                                 El mensaje debe contener una descripción más detallada (mínimo 30 caracteres, aprox. dos renglones).
@@ -302,7 +302,7 @@
 
             // --- Envío del Formulario ---
             if (isValid) {
-                // Espacio código para enviar los datos (e.g., usando fetch o AJAX)
+                // Espacio código para enviar los datos
                 
                 // Mostrar un modal o mensaje de éxito en lugar de alert()
                 showSuccessMessage('¡Mensaje enviado con éxito!', 'Gracias por contactarnos. Un experto legal se comunicará contigo pronto.');
