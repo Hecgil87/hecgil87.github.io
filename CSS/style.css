@@ -1,8 +1,4 @@
-/* ----------------------------------------------------------------- */
-/* 1. RESET Y CONTROL DE PANTALLA TOTAL (SOLUCIÓN) */
-/* ----------------------------------------------------------------- */
-
-/* CORRECCIÓN CLAVE: Eliminar margen/padding por defecto y controlar el ancho */
+/* Eliminar margen/padding por defecto y controlar el ancho */
 html {
     height: 100%;
     width: 100%;
@@ -12,8 +8,8 @@ html {
 
 body {
     /* CORRECCIÓN CLAVE: Eliminar márgenes y paddings globales no deseados */
-    margin: 0 !important; /* Agregamos !important como medida de seguridad */
-    padding: 0 !important; /* Agregamos !important como medida de seguridad */
+    margin: 0 !important; /*  !important como medida de seguridad */
+    padding: 0 !important; /* !important como medida de seguridad */
     width: 100%;
     
     /* Previene la barra de desplazamiento horizontal causada por overflow */
@@ -25,26 +21,19 @@ body {
     background-attachment: fixed;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ensure body fills viewport so footer can sit at bottom */
+    min-height: 100vh;
 }
 
-/* CORRECCIÓN EXTREMA: Asegurarnos que el primer elemento dentro del body (normalmente la barra superior) 
-   no tenga margen superior, anulando cualquier colapso o valor por defecto de Bootstrap. */
+
 body > *:first-child {
     margin-top: 0 !important;
 }
-
-
-/* ----------------------------------------------------------------- */
-/* 2. ESTILOS DE COMPONENTES (Ajustados) */
-/* ----------------------------------------------------------------- */
 
 /*Estilo de Titulo*/
 .siteTitle {
     font-size: 1.8em;
     color: #040423;
     font-weight: 700;
-    /* Align title to the left so it sits next to the logo */
     text-align: left;
     width: auto;
     display: block;
@@ -77,23 +66,17 @@ h1,h2,h3,h4,h5,h6 {
     display: block;
 }
 
-/* CORRECCIÓN DE SUBTÍTULO: Usamos un margen automático para centrar o 
+/* margen automático para centrar o 
    eliminamos el margen fijo que puede causar desbordamiento */
 .siteSubtitle {
     color: #333;
     font-size: 1.1rem;
     margin-top: 3px;
-    /* Align subtitle with title */
     text-align: left;
     margin-left: 170px;
 }
 
-
-/* ----------------------------------------------------------------- */
-/* 3. HEADER Y NAVEGACIÓN */
-/* ----------------------------------------------------------------- */
-
-/* Header background (blurred via ::before) */
+/* Header background*/
 header {
     min-height: 10px;
     padding: 0 0 0 0;
@@ -102,7 +85,7 @@ header {
     z-index: 1020 !important;
 }
 
-/* Optional overlay to improve text contrast */
+/* overlay text contrast */
 header::after {
     content: '';
     position: absolute;
@@ -137,22 +120,17 @@ header > * {
     z-index: 1020;
 }
 
-/* Regla específica para la barra superior (el div con id="top-bar") */
-#top-bar {
-    /* CORRECCIÓN DEFINITIVA: Forzar 0 padding superior para anular la clase 'py-1' de Bootstrap */
-    
+#top-bar {  
     margin-top: 0px !important; 
-    padding-top: 0px !important; /* AÑADIDO !important */
+    padding-top: 0px !important; /* !important */
     padding-bottom: 3px;
     background-color: #041523 !important; 
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    
-    /* Asegurar que el z-index sea lo suficientemente alto */
     position: relative;
     z-index: 1010;
 }
 
-/* Ensure navbar links match site color */
+
 .navbar .nav-link {
     color: #041523 !important;
 }
@@ -160,18 +138,13 @@ header > * {
     color: #041523 !important;
 }
 .navbar {
- /* CORREGIDO: Eliminar el margin-bottom de 20px */
-    margin: 0; /* CORREGIDO: Eliminar el margin-top de 20px */
+    margin: 0;
 }
 .dropdown-menu {
     z-index: 2050 !important;
 }
 
-/* ----------------------------------------------------------------- */
-/* 4. MAIN CONTENT Y FOOTER */
-/* ----------------------------------------------------------------- */
 
-/* Make main take remaining vertical space so footer is pushed to bottom */
 main {
     flex: 1 1 auto;
     width: 100%;
@@ -193,12 +166,7 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-
-/* ----------------------------------------------------------------- */
-/* 5. MEDIA QUERIES Y HOVER (Ajustados) */
-/* ----------------------------------------------------------------- */
-
-/* Add a small top margin to main to avoid content being hidden under sticky header on small screens */
+/* Responsive adjustments */
 @media (max-width: 767px) {
     main { margin-top: 8px; }
 }
@@ -221,22 +189,18 @@ footer {
 }
 
 .abstract-legal-bg {
-            /* Usando una ruta local */
             background-image: url('/img/FondoContacto.gif'); 
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            /* Texto blanco como fallback, aunque las reglas anidadas fuerzan el color */
             color: #ffffff; 
             position: relative;
             overflow: hidden;
-            border-radius: 0; /* Eliminamos bordes redondeados para el ancho completo */
-            box-shadow: none; /* Eliminamos la sombra para el ancho completo */
-            padding: 3rem 0 !important; /* Mantenemos padding vertical, el container interno maneja el horizontal */
+            border-radius: 0; /* cero bordes redondeados para el ancho completo */
+            box-shadow: none; /* sin la sombra para el ancho completo */
+            padding: 3rem 0 !important; /* padding vertical, el container interno maneja el horizontal */
             min-height: 400px; /* Altura mínima para mostrar el fondo */
-            /* AÑADIDO: Ocupa todo el ancho disponible */
             width: 100vw;
-            /* AÑADIDO: Mueve la sección hacia la izquierda para alinearse con el borde de la ventana */
             position: relative;
             left: 50%;
             right: 50%;
@@ -252,7 +216,6 @@ footer {
             left: 0;
             right: 0;
             bottom: 0;
-            /* Opacidad reducida a 0.35 para que se vea más el fondo */
             background: rgba(0, 0, 0, 0.35); 
             z-index: 1;
         }
@@ -263,11 +226,10 @@ footer {
             z-index: 2;
         }
         
-        /* REGLA CORREGIDA Y REFORZADA: Textos y Títulos siempre blancos dentro de esta sección */
+        /* Textos y Títulos siempre blancos dentro de esta sección */
         .abstract-legal-bg h2, 
         .abstract-legal-bg p {
-            color: #ffffff !important; /* ¡Forzamos el blanco! */
-            /* Aplicamos una sombra al texto más fuerte (negra) para que resalte */
+            color: #ffffff !important;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
         }
 
