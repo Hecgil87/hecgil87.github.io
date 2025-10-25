@@ -268,3 +268,106 @@ footer {
         .btn-call-to-action:hover {
             background-color: #0056b3;
         }
+
+        /* --- ESTILOS DEL WIDGET FLOTANTE --- */
+        #chatbot-toggle-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 65px; /* Un poco más grande para mejor touch/tap */
+            height: 65px;
+            border-radius: 50%;
+            background-color: #007bff; /* Color Azul Primario de AMC */
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+            z-index: 1050; 
+            transition: all 0.3s ease-in-out;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #chatbot-toggle-button:hover {
+            background-color: #0056b3; /* Tono más oscuro al pasar el ratón */
+            transform: scale(1.05);
+        }
+
+        /* --- ESTILOS DEL CHAT MODAL --- */
+        #chatbotModal .modal-dialog {
+            margin-right: 20px;
+            margin-bottom: 20px;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 90%; /* Ajuste para móvil */
+            max-width: 380px; /* Ancho máximo en escritorio */
+        }
+
+        @media (max-width: 576px) {
+             #chatbotModal .modal-dialog {
+                width: 90%;
+                margin: 10px auto;
+                right: auto;
+                bottom: auto;
+                max-width: none;
+             }
+        }
+
+        .chat-container {
+            width: 100%;
+            height: 300px; /* Altura fija para el historial de chat */
+            overflow-y: auto;
+            background-color: #fff;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid #eee;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 10px 14px;
+            border-radius: 18px;
+            max-width: 85%;
+            word-wrap: break-word;
+            font-size: 0.95rem;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background-color: #28a745; /*Verde para mensajes del usuario (Llamada a la acción) */
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            background-color: #e9ecef; /* Gris muy claro para el bot */
+            color: #333;
+            border: 1px solid #dee2e6;
+            border-bottom-left-radius: 5px;
+        }
+
+        /* Estilos para las sugerencias (Pills/Chips) */
+        .chat-suggestion {
+            cursor: pointer;
+            transition: background-color 0.2s, opacity 0.2s;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            opacity: 0.85;
+        }
+        
+        .chat-suggestion:hover {
+            opacity: 1;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .typing-indicator {
+            align-self: flex-start;
+            padding: 8px 12px;
+            color: #6c757d;
+            font-style: italic;
+        }
