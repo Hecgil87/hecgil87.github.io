@@ -1,0 +1,8 @@
+<svg width="800" height="1000" viewBox="0 0 800 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="800" height="1000" fill="#F1F5F9"/>
+<path d="M400 300C482.843 300 550 232.843 550 150C550 67.1573 482.843 0 400 0C317.157 0 250 67.1573 250 150C250 232.843 317.157 300 400 300Z" fill="#CBD5E1"/>
+<path d="M700 1000V850C700 711.929 588.071 600 450 600H350C211.929 600 100 711.929 100 850V1000" fill="#0EA5E9" fill-opacity="0.8"/>
+<circle cx="400" cy="250" r="150" fill="#94A3B8"/>
+<rect y="900" width="800" height="100" fill="#0F172A"/>
+<text x="50%" y="960" font-family="Arial, sans-serif" font-size="40" fill="white" text-anchor="middle">Dr. Mendoza (Placeholder)</text>
+</svg>
