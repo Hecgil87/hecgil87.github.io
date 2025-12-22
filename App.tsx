@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { BioScene } from './components/QuantumScene';
 import { BMICalculator, ServiceCard, TestimonialCard } from './components/Diagrams';
-import { Menu, X, Phone, Calendar, MapPin, Mail, ArrowRight, ArrowLeft, Activity, Stethoscope, Microscope, UserCheck, CheckCircle2, Instagram, Facebook, Twitter } from 'lucide-react';
+import { Menu, X, Phone, Calendar, MapPin, Mail, ArrowRight, ArrowLeft, Activity, Stethoscope, Microscope, UserCheck, CheckCircle2, Instagram, Facebook } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // --- CONFIGURACIÓN DE IMÁGENES ---
@@ -386,11 +386,14 @@ const App: React.FC = () => {
       <WhatsAppButton />
 
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled || currentView !== 'home' ? 'bg-white/95 backdrop-blur-md shadow-md py-2' : 'bg-transparent py-4'}`}>
-        <div className="container mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => { setCurrentView('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
-            {/* LOGO DINÁMICO DESDE ASSETS/LOGO.PNG */}
-            <div className="h-10 md:h-12 relative flex items-center justify-center">
+      <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        {/* CAMBIO 1: Se añade este div envoltorio con 'px-4' para separar el logo del borde de la pantalla */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between h-16 items-center">
+                {/* CAMBIO 2: Estructura del Brand corregida */}
+              <div className="flex items-center gap-3 shrink-0 cursor-pointer" onClick={() => { setCurrentView('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+                {/* Se eliminó 'absolute' de aquí para que el icono y el texto no se encimen */}
+                <div className="h-10 md:h-12 relative flex items-center justify-center">
                 <img 
                     src={IMAGE_PATHS.LOGO} 
                     alt="CEGAM Logo" 
@@ -401,36 +404,36 @@ const App: React.FC = () => {
                         target.src = LOGO_FALLBACK;
                     }}
                 />
-            </div>            
-          </div>
-          
-          <div className="hidden lg:flex items-center gap-8 text-sm font-semibold tracking-wide text-slate-600">
-            <a href="#inicio" onClick={scrollToSection('inicio')} className="hover:text-medical-primary transition-colors cursor-pointer">INICIO</a>
-            <a href="#doctor" onClick={scrollToSection('doctor')} className="hover:text-medical-primary transition-colors cursor-pointer">EL DOCTOR</a>
-            <a href="#servicios" onClick={scrollToSection('servicios')} className="hover:text-medical-primary transition-colors cursor-pointer">SERVICIOS</a>
-            <a href="#casos" onClick={scrollToSection('casos')} className="hover:text-medical-primary transition-colors cursor-pointer">BLOG Y CASOS</a>
-            
-            <div className="flex items-center gap-3 border-l border-slate-300 pl-4 h-6">
-                <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-pink-600 transition-colors"><Instagram size={18} /></a>
-                <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-600 transition-colors"><Facebook size={18} /></a>
-                <a href={SOCIAL_LINKS.email} className="text-slate-400 hover:text-medical-primary transition-colors"><Mail size={18} /></a>
+            </div> 
+                </div>
+
+            {/* CAMBIO 4: El menú ahora se mantiene a la derecha gracias al flex-justify-between del padre */}
+            <div className="hidden md:flex items-center space-x-8">
+                <div className="flex space-x-6 text-sm font-bold text-gray-600">
+                    <a href="#inicio" className="hover:text-[#0092bc] transition-colors">INICIO</a>
+                    <a href="#doctor" className="hover:text-[#0092bc] transition-colors">EL DOCTOR</a>
+                    <a href="#servicios" className="hover:text-[#0092bc] transition-colors">SERVICIOS</a>
+                    <a href="#casos" className="hover:text-[#0092bc] transition-colors">BLOG</a>
+                </div>
+        
+                <div className="flex items-center space-x-4">
+                    <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-pink-600 transition-colors"><Instagram size={18} /></a>
+                    <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-600 transition-colors"><Facebook size={18} /></a>
+                    <a href={SOCIAL_LINKS.email} className="text-slate-400 hover:text-medical-primary transition-colors"><Mail size={18} /></a>
+                </div>
+
+                <a
+                    href="#contacto" 
+                    onClick={scrollToSection('contacto')}
+                    className="px-6 py-2.5 bg-gradient-to-r from-medical-primary to-medical-accent text-white rounded-full hover:shadow-lg transition-all transform hover:-translate-y-0.5 font-bold shadow-md flex items-center gap-2"
+                >
+                    <Calendar size={16} />
+                    Agendar Cita
+                </a>
             </div>
-
-            <a 
-              href="#contacto" 
-              onClick={scrollToSection('contacto')}
-              className="px-6 py-2.5 bg-gradient-to-r from-medical-primary to-medical-accent text-white rounded-full hover:shadow-lg transition-all transform hover:-translate-y-0.5 font-bold shadow-md flex items-center gap-2"
-            >
-              <Calendar size={16} />
-              Agendar Cita
-            </a>
-          </div>
-
-          <button className="lg:hidden text-slate-800 p-2" onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? <X /> : <Menu />}
-          </button>
         </div>
-      </nav>
+    </div>
+</nav>
 
       {/* Mobile Menu */}
       {menuOpen && (
@@ -438,7 +441,7 @@ const App: React.FC = () => {
             <a href="#inicio" onClick={scrollToSection('inicio')} className="hover:text-medical-primary transition-colors">Inicio</a>
             <a href="#doctor" onClick={scrollToSection('doctor')} className="hover:text-medical-primary transition-colors">El Doctor</a>
             <a href="#servicios" onClick={scrollToSection('servicios')} className="hover:text-medical-primary transition-colors">Servicios</a>
-            <a href="#casos" onClick={scrollToSection('casos')} className="hover:text-medical-primary transition-colors">Casos de Éxito</a>
+            <a href="#casos" onClick={scrollToSection('casos')} className="hover:text-medical-primary transition-colors">Casos de ÉXITO</a>
             
             {/* Social Icons Mobile */}
             <div className="flex items-center gap-6 mt-4">
@@ -641,9 +644,7 @@ const App: React.FC = () => {
                         <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                             
                             <div className="lg:col-span-2">
-                                <div className="flex items-center gap-2 mb-6 text-white">
-                                    <Activity className="text-medical-primary" />
-                                    <span className="font-serif text-2xl font-bold">CEGAM</span>
+                                <div className="font-serif text-2xl font-bold">CEGAM
                                 </div>
                                 <p className="mb-8 text-slate-400 max-w-sm leading-relaxed">
                                     Centro de Gastroenterología Mendoza. Dedicados a mejorar tu calidad de vida a través de la salud digestiva y el control de peso con los más altos estándares médicos.
@@ -659,19 +660,19 @@ const App: React.FC = () => {
                             </div>
 
                             <div>
-                                <h3 className="text-white font-bold mb-6">Contacto</h3>
+                                <h3 className="text-white font-bold mb-6">Información de Contacto</h3>
                                 <ul className="space-y-4">
                                     <li className="flex items-start gap-3">
                                         <MapPin className="text-medical-primary shrink-0 mt-1" size={20} />
-                                        <span>Av. Principal de la Salud 123, Consultorio 405<br/>Mendoza, Argentina</span>
+                                        <span>El Vigía, 6-59 Av 17, Clínica San Juan<br/>Mérida, Venezuela</span>
                                     </li>
                                     <li className="flex items-center gap-3">
                                         <Phone className="text-medical-primary shrink-0" size={20} />
-                                        <span>+584247010090 - +584147304262</span>
+                                        <span>+584247010090 +584147304262</span>
                                     </li>
                                     <li className="flex items-center gap-3">
                                         <Mail className="text-medical-primary shrink-0" size={20} />
-                                        <span>contacto@cegam-mendoza.com</span>
+                                        <span>drJosephdmendozam@gmail.com</span>
                                     </li>
                                 </ul>
                             </div>
@@ -692,7 +693,10 @@ const App: React.FC = () => {
                                         <span>Cerrado</span>
                                     </li>
                                 </ul>
-                                <a href="#" className="mt-6 block w-full text-center py-2 border border-slate-600 rounded-lg hover:border-medical-primary hover:text-medical-primary transition-colors">
+                                <a href="https://maps.app.goo.gl/5duTAmXfnejNTD7d6"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="mt-6 block w-full text-center py-2 border border-slate-600 rounded-lg hover:border-medical-primary hover:text-medical-primary transition-colors">
                                     Ver Ubicación en Mapa
                                 </a>
                             </div>
