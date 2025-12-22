@@ -13,10 +13,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 // --- CONFIGURACIÓN DE IMÁGENES ---
 const IMAGE_PATHS = {
     LOGO: "./assets/logo.png",
-    DOCTOR: "assets/doctor.jpg", 
-    CASE_1: "assets/caso1.jpg", 
-    CASE_2: "assets/caso2.jpg",
-    CASE_3: "assets/caso3.jpg"
+    DOCTOR: "./assets/doctor.jpg", 
+    CASE_1: "./assets/caso1.jpg", 
+    CASE_2: "./assets/caso2.jpg",
+    CASE_3: "./assets/caso3.jpg"
 };
 
 // URL de respaldo en caso de que las imágenes no existan
