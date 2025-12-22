@@ -465,22 +465,22 @@ const App: React.FC = () => {
                 transition={{ duration: 0.3 }}
             >
                 {/* Hero Section */}
-                <header id="inicio" className="relative h-screen min-h-[600px] flex items-center overflow-hidden bg-slate-50">
+                <header id="inicio" className="relative min-h-[70vh] flex items-center pt-16 pb-12 lg:pt-20 lg:pb-16 overflow-hidden bg-white">
                     <BioScene />
                     
                     {/* Gradient Overlay for text readability */}
-                    <div className="absolute inset-0 z-0 bg-gradient-to-r from-slate-50 via-slate-50/90 to-transparent" />
+                    <div className="absolute inset-0 z-0 bg-gradient-to-r from-slate-50 via-slate-50/95 to-transparent" />
 
-                    <div className="relative z-10 container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div className="max-w-2xl">
+                    <div className="relative z-10 container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div className="max-w-xl mb-12 lg:mb-0">
                         <div className="inline-block mb-4 px-4 py-1.5 bg-blue-100 text-medical-primary text-xs tracking-widest uppercase font-bold rounded-full">
                         Centro de Gastroenterología Mendoza
                         </div>
-                        <h1 className="font-serif text-5xl md:text-7xl font-bold leading-tight mb-6 text-slate-900 drop-shadow-sm">
-                        Tu salud digestiva <br/>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-medical-primary to-medical-accent">
-                            en manos expertas
-                        </span>
+                        <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] mb-6 text-slate-900 drop-shadow-sm">
+                            Tu salud digestiva <br/>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-medical-primary to-medical-accent">
+                                en manos expertas
+                            </span>
                         </h1>
                         <p className="text-lg md:text-xl text-slate-600 leading-relaxed mb-8 max-w-lg">
                         Especialistas en prevención de obesidad, balón gástrico y salud gastrointestinal integral. Transformamos vidas a través de la medicina avanzada.
@@ -500,7 +500,7 @@ const App: React.FC = () => {
 
                 <main>
                     {/* About Doctor */}
-                    <section id="doctor" className="py-24 bg-white relative overflow-hidden">
+                    <section id="doctor" className="py-24 bg-white relative pt-12 overflow-hidden">
                     <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div className="relative">
                             <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-slate-200 relative z-10">
@@ -553,7 +553,7 @@ const App: React.FC = () => {
                     </section>
 
                     {/* Services */}
-                    <section id="servicios" className="py-24 bg-slate-50">
+                    <section id="servicios" className="py-24 pt-12 bg-slate-50">
                         <div className="container mx-auto px-6">
                             <div className="text-center max-w-3xl mx-auto mb-16">
                                 <span className="text-medical-primary font-bold tracking-widest uppercase text-sm">Nuestros Procedimientos</span>
@@ -611,7 +611,7 @@ const App: React.FC = () => {
                     </section>
 
                     {/* Blog & Success Stories */}
-                    <section id="casos" className="py-24 bg-white">
+                    <section id="casos" className="py-24 pt-10 pt-10 mb-0 bg-white">
                         <div className="container mx-auto px-6">
                             <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                                 <div>
@@ -640,7 +640,7 @@ const App: React.FC = () => {
                     </section>
 
                     {/* Contact Footer */}
-                    <section id="contacto" className="bg-slate-900 text-slate-300 py-20 border-t border-slate-800">
+                    <section id="contacto" className="bg-slate-900 text-slate-300 py-20 border-t border-slate-800 pt-8">
                         <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                             
                             <div className="lg:col-span-2">
@@ -702,7 +702,7 @@ const App: React.FC = () => {
                             </div>
 
                         </div>
-                        <div className="container mx-auto px-6 mt-16 pt-8 border-t border-slate-800 text-center text-sm text-slate-600">
+                        <div className="mt-4 mb-0 pt-2 border-t border-slate-200 text-center text-sm text-slate-500 pb-0">
                             &copy; 2024 CEGAM - Dr. Joseph Mendoza Monterola. Todos los derechos reservados.
                         </div>
                     </section>
