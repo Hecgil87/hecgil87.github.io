@@ -1,3 +1,4 @@
+
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -12,10 +13,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 // --- CONFIGURACIÓN DE IMÁGENES ---
 const IMAGE_PATHS = {
     LOGO: "./assets/logo.png",
-    DOCTOR: "./assets/doctor.jpg", 
-    CASE_1: "./assets/caso1.jpg", 
-    CASE_2: "./assets/caso2.jpg",
-    CASE_3: "./assets/caso3.jpg"
+    DOCTOR: "assets/doctor.jpg", 
+    CASE_1: "assets/caso1.jpg", 
+    CASE_2: "assets/caso2.jpg",
+    CASE_3: "assets/caso3.jpg"
 };
 
 // URL de respaldo en caso de que las imágenes no existan
@@ -141,11 +142,8 @@ const BLOG_DATA = [
 const LoadingScreen = () => (
     <div className="fixed inset-0 z-[60] bg-white flex flex-col items-center justify-center">
         <div className="relative w-24 h-24 mb-4">
-            {/* Anillo exterior estático */}
             <div className="absolute inset-0 border-4 border-slate-100 rounded-full"></div>
-            {/* Anillo giratorio */}
             <div className="absolute inset-0 border-4 border-medical-primary rounded-full border-t-transparent animate-spin"></div>
-            {/* Icono central pulsante */}
             <div className="absolute inset-0 flex items-center justify-center animate-pulse">
                 <Activity className="text-medical-primary w-8 h-8" />
             </div>
@@ -157,7 +155,7 @@ const LoadingScreen = () => (
     </div>
 );
 
-// --- COMPONENTE BOTÓN FLOTANTE WHATSAPP (EXPANDIBLE) ---
+// --- COMPONENTE BOTÓN FLOTANTE WHATSAPP ---
 const WhatsAppButton = () => (
     <a 
         href={SOCIAL_LINKS.whatsapp} 
@@ -177,7 +175,7 @@ const WhatsAppButton = () => (
 
 // --- COMPONENTES DE VISTA ---
 
-const ServiceDetailView = ({ service, onBack }: { service: any, onBack: () => void }) => (
+const ServiceDetailView = ({ service, onBack, onContactClick }: { service: any, onBack: () => void, onContactClick: (e: any) => void }) => (
     <div className="pt-24 pb-12 min-h-screen bg-slate-50">
         <div className="container mx-auto px-6 max-w-4xl">
             <button onClick={onBack} className="mb-8 flex items-center text-slate-500 hover:text-medical-primary transition-colors font-medium">
@@ -221,11 +219,13 @@ const ServiceDetailView = ({ service, onBack }: { service: any, onBack: () => vo
                             <p className="text-slate-300 mb-8 max-w-lg mx-auto">
                                 Agende una evaluación con el Dr. Mendoza para determinar si este es el procedimiento adecuado para usted.
                             </p>
-                            <a href="#contacto" onClick={(e) => { e.preventDefault(); document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' }); }} className="inline-block px-8 py-4 bg-medical-primary hover:bg-sky-500 text-white rounded-full font-bold shadow-lg transition-all transform hover:-translate-y-1">
+                            <button 
+                                onClick={onContactClick} 
+                                className="inline-block px-8 py-4 bg-medical-primary hover:bg-sky-500 text-white rounded-full font-bold shadow-lg transition-all transform hover:-translate-y-1"
+                            >
                                 Agendar Cita Ahora
-                            </a>
+                            </button>
                         </div>
-                        {/* Decorative bg */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-medical-primary opacity-10 rounded-full blur-[60px] translate-x-1/2 -translate-y-1/2"></div>
                     </div>
                 </div>
@@ -238,7 +238,7 @@ const BlogDetailView = ({ post, onBack }: { post: any, onBack: () => void }) => 
     <div className="pt-24 pb-12 min-h-screen bg-slate-50">
         <div className="container mx-auto px-6 max-w-3xl">
             <button onClick={onBack} className="mb-8 flex items-center text-slate-500 hover:text-medical-primary transition-colors font-medium">
-                <ArrowLeft className="mr-2" size={20} /> Volver
+                <ArrowLeft className="mr-2" size={20} /> Volver al Blog
             </button>
 
             <article className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
@@ -249,7 +249,7 @@ const BlogDetailView = ({ post, onBack }: { post: any, onBack: () => void }) => 
                         className="w-full h-full object-cover" 
                         onError={(e) => {
                             const target = e.target as HTMLImageElement;
-                            target.onerror = null; // Previene bucles infinitos
+                            target.onerror = null;
                             target.src = FALLBACK_IMAGE;
                         }}
                     />
@@ -264,7 +264,6 @@ const BlogDetailView = ({ post, onBack }: { post: any, onBack: () => void }) => 
                 </div>
                 
                 <div className="p-8 md:p-12 text-slate-600 text-lg leading-relaxed blog-content">
-                     {/* Using dangerouslySetInnerHTML for the demo content structure */}
                     <div dangerouslySetInnerHTML={{ __html: post.content }} />
                 </div>
 
@@ -298,53 +297,45 @@ const BlogDetailView = ({ post, onBack }: { post: any, onBack: () => void }) => 
 
 
 const App: React.FC = () => {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentView, setCurrentView] = useState<'home' | 'service-detail' | 'blog-detail'>('home');
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Simulación de carga inicial de recursos (imágenes, escena 3D)
   useEffect(() => {
     const timer = setTimeout(() => {
         setIsLoading(false);
-    }, 2000); // 2 segundos de pantalla de carga para asegurar que los estilos/3D carguen
+    }, 1500);
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // Función genérica para scroll, ahora más robusta con reintentos para Framer Motion
+  const performScroll = (id: string, attempts = 0) => {
+      const element = document.getElementById(id);
+      if (element) {
+          const headerOffset = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+      } else if (id === 'inicio') {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (attempts < 8) {
+          // Si el elemento no existe aún (por animación), reintentamos un par de veces
+          setTimeout(() => performScroll(id, attempts + 1), 50);
+      }
+  };
 
-  const scrollToSection = (id: string) => (e: React.MouseEvent) => {
-    e.preventDefault();
+  const scrollToSection = (id: string) => (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
     setMenuOpen(false);
     
-    // Si estamos en una vista de detalle, volvemos al home primero
     if (currentView !== 'home') {
         setCurrentView('home');
-        // Aumentamos el timeout a 500ms para asegurar que la animación de salida (300ms)
-        // haya terminado y el DOM de la página de inicio esté completamente montado
-        // antes de intentar hacer scroll.
-        setTimeout(() => {
-            const element = document.getElementById(id);
-            if (element) {
-                const headerOffset = 80;
-                const elementPosition = element.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-            }
-        }, 500);
+        setSelectedItem(null);
+        // Aumentamos el tiempo para que coincida con la animación de salida de AnimatePresence (300ms)
+        setTimeout(() => performScroll(id), 400);
     } else {
-        const element = document.getElementById(id);
-        if (element) {
-            const headerOffset = 80;
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-            window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-        }
+        performScroll(id);
     }
   };
 
@@ -360,15 +351,18 @@ const App: React.FC = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const goBack = () => {
+  // Esta función ahora acepta el ID de la sección a la que queremos regresar
+  const goBackToSection = (sectionId: string) => {
       setCurrentView('home');
       setSelectedItem(null);
+      // Tras cambiar el estado a 'home', el componente se vuelve a renderizar después de la salida
+      // Usamos 400ms para asegurar que la animación de salida de DetailView ha terminado
+      setTimeout(() => performScroll(sectionId), 400);
   };
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 selection:bg-medical-primary selection:text-white">
       
-      {/* PANTALLA DE CARGA (SPINNER) */}
       <AnimatePresence>
         {isLoading && (
             <motion.div 
@@ -382,38 +376,36 @@ const App: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* BOTÓN FLOTANTE WHATSAPP */}
       <WhatsAppButton />
 
       {/* Navigation */}
       <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-        {/* CAMBIO 1: Se añade este div envoltorio con 'px-4' para separar el logo del borde de la pantalla */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between h-16 items-center">
-                {/* CAMBIO 2: Estructura del Brand corregida */}
-              <div className="flex items-center gap-3 shrink-0 cursor-pointer" onClick={() => { setCurrentView('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
-                {/* Se eliminó 'absolute' de aquí para que el icono y el texto no se encimen */}
+              <div 
+                className="flex items-center gap-3 shrink-0 cursor-pointer" 
+                onClick={(e) => scrollToSection('inicio')(e as any)}
+              >
                 <div className="h-10 md:h-12 relative flex items-center justify-center">
-                <img 
-                    src={IMAGE_PATHS.LOGO} 
-                    alt="CEGAM Logo" 
-                    className="h-full w-auto object-contain" // h-full ocupa el 100% de la altura. Cambia 'w-auto' por 'w-32' o similar para un ancho fijo.
-                    onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.onerror = null;
-                        target.src = LOGO_FALLBACK;
-                    }}
-                />
-            </div> 
-                </div>
+                    <img 
+                        src={IMAGE_PATHS.LOGO} 
+                        alt="CEGAM Logo" 
+                        className="h-full w-auto object-contain"
+                        onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.onerror = null;
+                            target.src = LOGO_FALLBACK;
+                        }}
+                    />
+                </div> 
+              </div>
 
-            {/* CAMBIO 4: El menú ahora se mantiene a la derecha gracias al flex-justify-between del padre */}
             <div className="hidden md:flex items-center space-x-8">
                 <div className="flex space-x-6 text-sm font-bold text-gray-600">
-                    <a href="#inicio" className="hover:text-[#0092bc] transition-colors">INICIO</a>
-                    <a href="#doctor" className="hover:text-[#0092bc] transition-colors">EL DOCTOR</a>
-                    <a href="#servicios" className="hover:text-[#0092bc] transition-colors">SERVICIOS</a>
-                    <a href="#casos" className="hover:text-[#0092bc] transition-colors">BLOG</a>
+                    <button onClick={scrollToSection('inicio')} className="hover:text-[#0092bc] transition-colors uppercase">Inicio</button>
+                    <button onClick={scrollToSection('doctor')} className="hover:text-[#0092bc] transition-colors uppercase">El Doctor</button>
+                    <button onClick={scrollToSection('servicios')} className="hover:text-[#0092bc] transition-colors uppercase">Servicios</button>
+                    <button onClick={scrollToSection('casos')} className="hover:text-[#0092bc] transition-colors uppercase">Blog</button>
                 </div>
         
                 <div className="flex items-center space-x-4">
@@ -422,37 +414,48 @@ const App: React.FC = () => {
                     <a href={SOCIAL_LINKS.email} className="text-slate-400 hover:text-medical-primary transition-colors"><Mail size={18} /></a>
                 </div>
 
-                <a
-                    href="#contacto" 
+                <button
                     onClick={scrollToSection('contacto')}
                     className="px-6 py-2.5 bg-gradient-to-r from-medical-primary to-medical-accent text-white rounded-full hover:shadow-lg transition-all transform hover:-translate-y-0.5 font-bold shadow-md flex items-center gap-2"
                 >
                     <Calendar size={16} />
                     Agendar Cita
-                </a>
+                </button>
+            </div>
+
+            <div className="md:hidden flex items-center">
+                <button onClick={() => setMenuOpen(!menuOpen)} className="p-2 text-slate-600">
+                    {menuOpen ? <X size={28} /> : <Menu size={28} />}
+                </button>
             </div>
         </div>
     </div>
 </nav>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="fixed inset-0 z-40 bg-white flex flex-col items-center justify-center gap-8 text-xl font-serif animate-fade-in text-slate-800">
-            <a href="#inicio" onClick={scrollToSection('inicio')} className="hover:text-medical-primary transition-colors">Inicio</a>
-            <a href="#doctor" onClick={scrollToSection('doctor')} className="hover:text-medical-primary transition-colors">El Doctor</a>
-            <a href="#servicios" onClick={scrollToSection('servicios')} className="hover:text-medical-primary transition-colors">Servicios</a>
-            <a href="#casos" onClick={scrollToSection('casos')} className="hover:text-medical-primary transition-colors">Casos de ÉXITO</a>
-            
-            {/* Social Icons Mobile */}
-            <div className="flex items-center gap-6 mt-4">
-                <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-pink-600 transition-colors p-2 bg-slate-50 rounded-full"><Instagram size={24} /></a>
-                <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-600 transition-colors p-2 bg-slate-50 rounded-full"><Facebook size={24} /></a>
-                <a href={SOCIAL_LINKS.email} className="text-slate-400 hover:text-medical-primary transition-colors p-2 bg-slate-50 rounded-full"><Mail size={24} /></a>
-            </div>
+      <AnimatePresence>
+        {menuOpen && (
+            <motion.div 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="fixed inset-0 z-40 bg-white flex flex-col items-center justify-center gap-8 text-xl font-serif text-slate-800"
+            >
+                <button onClick={scrollToSection('inicio')} className="hover:text-medical-primary transition-colors">Inicio</button>
+                <button onClick={scrollToSection('doctor')} className="hover:text-medical-primary transition-colors">El Doctor</button>
+                <button onClick={scrollToSection('servicios')} className="hover:text-medical-primary transition-colors">Servicios</button>
+                <button onClick={scrollToSection('casos')} className="hover:text-medical-primary transition-colors">Casos de Éxito / Blog</button>
+                
+                <div className="flex items-center gap-6 mt-4">
+                    <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-pink-600 transition-colors p-2 bg-slate-50 rounded-full"><Instagram size={24} /></a>
+                    <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-600 transition-colors p-2 bg-slate-50 rounded-full"><Facebook size={24} /></a>
+                    <a href={SOCIAL_LINKS.email} className="text-slate-400 hover:text-medical-primary transition-colors p-2 bg-slate-50 rounded-full"><Mail size={24} /></a>
+                </div>
 
-            <a href="#contacto" onClick={scrollToSection('contacto')} className="px-8 py-3 bg-medical-primary text-white rounded-full shadow-lg">Agendar Cita</a>
-        </div>
-      )}
+                <button onClick={scrollToSection('contacto')} className="px-8 py-3 bg-medical-primary text-white rounded-full shadow-lg">Agendar Cita</button>
+            </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* VIEW CONTROLLER */}
       <AnimatePresence mode="wait">
@@ -467,10 +470,7 @@ const App: React.FC = () => {
                 {/* Hero Section */}
                 <header id="inicio" className="relative min-h-[70vh] flex items-center pt-16 pb-12 lg:pt-20 lg:pb-16 overflow-hidden bg-white">
                     <BioScene />
-                    
-                    {/* Gradient Overlay for text readability */}
                     <div className="absolute inset-0 z-0 bg-gradient-to-r from-slate-50 via-slate-50/95 to-transparent" />
-
                     <div className="relative z-10 container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <div className="max-w-xl mb-12 lg:mb-0">
                         <div className="inline-block mb-4 px-4 py-1.5 bg-blue-100 text-medical-primary text-xs tracking-widest uppercase font-bold rounded-full">
@@ -487,12 +487,12 @@ const App: React.FC = () => {
                         </p>
                         
                         <div className="flex flex-col sm:flex-row gap-4">
-                        <a href="#contacto" onClick={scrollToSection('contacto')} className="px-8 py-4 bg-medical-primary text-white rounded-full font-bold shadow-lg hover:shadow-xl hover:bg-sky-600 transition-all text-center flex items-center justify-center gap-2">
+                        <button onClick={scrollToSection('contacto')} className="px-8 py-4 bg-medical-primary text-white rounded-full font-bold shadow-lg hover:shadow-xl hover:bg-sky-600 transition-all text-center flex items-center justify-center gap-2">
                             Agendar Consulta <ArrowRight size={18} />
-                        </a>
-                        <a href="#servicios" onClick={scrollToSection('servicios')} className="px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-full font-bold shadow-sm hover:border-medical-primary hover:text-medical-primary transition-all text-center">
+                        </button>
+                        <button onClick={scrollToSection('servicios')} className="px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-full font-bold shadow-sm hover:border-medical-primary hover:text-medical-primary transition-all text-center">
                             Ver Tratamientos
-                        </a>
+                        </button>
                         </div>
                     </div>
                     </div>
@@ -504,7 +504,6 @@ const App: React.FC = () => {
                     <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div className="relative">
                             <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-slate-200 relative z-10">
-                                {/* USANDO LA RUTA DE IMAGEN DEFINIDA ARRIBA */}
                                 <img 
                                     src={IMAGE_PATHS.DOCTOR} 
                                     alt="Dr. Joseph Mendoza" 
@@ -520,7 +519,6 @@ const App: React.FC = () => {
                                     <p className="text-sky-300 font-medium">Gastroenterólogo Especialista</p>
                                 </div>
                             </div>
-                            {/* Decorative element behind image */}
                             <div className="absolute top-10 -right-10 w-full h-full border-2 border-medical-primary/20 rounded-2xl z-0 hidden lg:block"></div>
                         </div>
                         
@@ -580,7 +578,6 @@ const App: React.FC = () => {
 
                     {/* BMI Calculator & Prevention */}
                     <section className="py-24 bg-medical-dark text-white relative overflow-hidden">
-                        {/* Background Pattern */}
                         <div className="absolute top-0 right-0 w-96 h-96 bg-medical-primary opacity-20 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2"></div>
                         <div className="absolute bottom-0 left-0 w-96 h-96 bg-medical-accent opacity-20 rounded-full blur-[100px] -translate-x-1/2 translate-y-1/2"></div>
 
@@ -611,14 +608,14 @@ const App: React.FC = () => {
                     </section>
 
                     {/* Blog & Success Stories */}
-                    <section id="casos" className="py-24 pt-10 pt-10 mb-0 bg-white">
+                    <section id="casos" className="py-24 pt-10 mb-0 bg-white">
                         <div className="container mx-auto px-6">
                             <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                                 <div>
                                     <span className="text-medical-primary font-bold tracking-widest uppercase text-sm">Blog y Testimonios</span>
                                     <h2 className="font-serif text-4xl mt-3 text-slate-900 font-bold">Historias de Transformación</h2>
                                 </div>
-                                <button className="px-6 py-2 border-2 border-slate-200 rounded-full font-bold text-slate-600 hover:border-medical-primary hover:text-medical-primary transition-colors">
+                                <button onClick={scrollToSection('casos')} className="px-6 py-2 border-2 border-slate-200 rounded-full font-bold text-slate-600 hover:border-medical-primary hover:text-medical-primary transition-colors">
                                     Ver todas las publicaciones
                                 </button>
                             </div>
@@ -640,23 +637,13 @@ const App: React.FC = () => {
                     </section>
 
                     {/* Contact Footer */}
-                    <section id="contacto" className="bg-slate-900 text-slate-300 py-20 border-t border-slate-800 pt-8">
+                    <footer id="contacto" className="bg-slate-900 text-slate-300 py-20 border-t border-slate-800 pt-8">
                         <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-                            
                             <div className="lg:col-span-2">
-                                <div className="font-serif text-2xl font-bold">CEGAM
-                                </div>
+                                <div className="font-serif text-2xl font-bold text-white mb-4">CEGAM</div>
                                 <p className="mb-8 text-slate-400 max-w-sm leading-relaxed">
                                     Centro de Gastroenterología Mendoza. Dedicados a mejorar tu calidad de vida a través de la salud digestiva y el control de peso con los más altos estándares médicos.
                                 </p>
-                                <div className="flex gap-4">
-                                    <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-medical-primary hover:text-white transition-colors">
-                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" /></svg>
-                                    </a>
-                                    <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-medical-primary hover:text-white transition-colors">
-                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772 4.902 4.902 0 011.772-1.153c.636-.247 1.363-.416 2.427-.465 1.067-.047 1.409-.06 3.809-.06zM12 5.917a6.084 6.084 0 100 12.168 6.084 6.084 0 000-12.168zm0 2.158a3.926 3.926 0 110 7.852 3.926 3.926 0 010-7.852zm9.196-4.706a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" clipRule="evenodd" /></svg>
-                                    </a>
-                                </div>
                             </div>
 
                             <div>
@@ -700,12 +687,11 @@ const App: React.FC = () => {
                                     Ver Ubicación en Mapa
                                 </a>
                             </div>
-
                         </div>
-                        <div className="mt-4 mb-0 pt-2 border-t border-slate-200 text-center text-sm text-slate-500 pb-0">
+                        <div className="mt-8 pt-8 border-t border-slate-800 text-center text-sm text-slate-500">
                             &copy; 2024 CEGAM - Dr. Joseph Mendoza Monterola. Todos los derechos reservados.
                         </div>
-                    </section>
+                    </footer>
                 </main>
             </motion.div>
         )}
@@ -718,7 +704,11 @@ const App: React.FC = () => {
                 exit={{ opacity: 0, x: 20 }}
                 transition={{ duration: 0.3 }}
             >
-                <ServiceDetailView service={selectedItem} onBack={goBack} />
+                <ServiceDetailView 
+                    service={selectedItem} 
+                    onBack={() => goBackToSection('servicios')} 
+                    onContactClick={scrollToSection('contacto')}
+                />
              </motion.div>
         )}
 
@@ -730,7 +720,10 @@ const App: React.FC = () => {
                 exit={{ opacity: 0, x: 20 }}
                 transition={{ duration: 0.3 }}
             >
-                <BlogDetailView post={selectedItem} onBack={goBack} />
+                <BlogDetailView 
+                    post={selectedItem} 
+                    onBack={() => goBackToSection('casos')} 
+                />
             </motion.div>
         )}
       </AnimatePresence>
