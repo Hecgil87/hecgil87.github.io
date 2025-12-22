@@ -11,14 +11,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 // --- CONFIGURACIÓN DE IMÁGENES ---
 const IMAGE_PATHS = {
-    DOCTOR: "/assets/doctor.jpg", 
-    CASE_1: "/assets/caso1.jpg", 
-    CASE_2: "/assets/caso2.jpg",
-    CASE_3: "/assets/caso3.jpg"
+    LOGO: "assets/logo.png",
+    DOCTOR: "assets/doctor.jpg", 
+    CASE_1: "assets/caso1.jpg", 
+    CASE_2: "assets/caso2.jpg",
+    CASE_3: "assets/caso3.jpg"
 };
 
-// URL de respaldo
+// URL de respaldo en caso de que las imágenes no existan
 const FALLBACK_IMAGE = "https://placehold.co/600x400/e2e8f0/0f172a?text=Imagen+No+Encontrada";
+const LOGO_FALLBACK = "https://placehold.co/100x100/0ea5e9/ffffff?text=CEGAM";
 
 // --- CONFIGURACIÓN DE REDES SOCIALES ---
 const SOCIAL_LINKS = {
@@ -282,7 +284,7 @@ const BlogDetailView = ({ post, onBack }: { post: any, onBack: () => void }) => 
                         </div>
                         <div>
                             <p className="text-sm font-bold text-slate-900">Dr. Joseph Mendoza</p>
-                            <p className="text-xs text-slate-500">Autor / Especialista</p>
+                            <p className="text-xs text-slate-500">Autor / Especialista en Patologías Digestivas</p>
                         </div>
                     </div>
                     <button className="text-medical-primary font-bold text-sm hover:underline">
@@ -384,18 +386,22 @@ const App: React.FC = () => {
       <WhatsAppButton />
 
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled || currentView !== 'home' ? 'bg-white/95 backdrop-blur-md shadow-md py-3' : 'bg-transparent py-5'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled || currentView !== 'home' ? 'bg-white/95 backdrop-blur-md shadow-md py-2' : 'bg-transparent py-4'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => { setCurrentView('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
-            <div className="w-10 h-10 bg-gradient-to-br from-medical-primary to-medical-accent rounded-xl flex items-center justify-center text-white shadow-lg">
-                <Activity size={24} />
-            </div>
-            <div className="flex flex-col">
-                <span className={`font-serif font-bold text-xl tracking-wide leading-none text-slate-800`}>
-                CEGAM
-                </span>
-                <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Dr. Mendoza</span>
-            </div>
+            {/* LOGO DINÁMICO DESDE ASSETS/LOGO.PNG */}
+            <div className="h-10 md:h-12 relative flex items-center justify-center">
+                <img 
+                    src={IMAGE_PATHS.LOGO} 
+                    alt="CEGAM Logo" 
+                    className="h-full w-auto object-contain" // h-full ocupa el 100% de la altura. Cambia 'w-auto' por 'w-32' o similar para un ancho fijo.
+                    onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.onerror = null;
+                        target.src = LOGO_FALLBACK;
+                    }}
+                />
+            </div>            
           </div>
           
           <div className="hidden lg:flex items-center gap-8 text-sm font-semibold tracking-wide text-slate-600">
@@ -404,7 +410,6 @@ const App: React.FC = () => {
             <a href="#servicios" onClick={scrollToSection('servicios')} className="hover:text-medical-primary transition-colors cursor-pointer">SERVICIOS</a>
             <a href="#casos" onClick={scrollToSection('casos')} className="hover:text-medical-primary transition-colors cursor-pointer">BLOG Y CASOS</a>
             
-            {/* Social Icons & Separator */}
             <div className="flex items-center gap-3 border-l border-slate-300 pl-4 h-6">
                 <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-pink-600 transition-colors"><Instagram size={18} /></a>
                 <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-600 transition-colors"><Facebook size={18} /></a>
@@ -662,7 +667,7 @@ const App: React.FC = () => {
                                     </li>
                                     <li className="flex items-center gap-3">
                                         <Phone className="text-medical-primary shrink-0" size={20} />
-                                        <span>+54 9 261 123-4567</span>
+                                        <span>+584247010090 - +584147304262</span>
                                     </li>
                                     <li className="flex items-center gap-3">
                                         <Mail className="text-medical-primary shrink-0" size={20} />
